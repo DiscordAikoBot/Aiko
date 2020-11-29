@@ -19,19 +19,15 @@ const { permCheck } = require('../../functions.js');
 let perm = permCheck(message, false, 'mute')
       if(perm === false) return message.channel.send('No Perms');
 
-      
-     
-//define the reason and mutee
+
 let mutee = message.mentions.members.first() || message.guild.members.fetch(args[0]);
-  if(!mutee) {
-    return message.channel.send("Please mention the user that you want to mute")
-    }
+  if(!mutee) return message.channel.send("Please mention the user that you want to mute");
     if (mutee.id === message.author.id) {
-      return message.reply("You can't mute yourself...")
+      return message.reply("You can't mute yourself...");
       }
 
 let time = args[1];
-if(!time) message.channel.send('Specify the time please')
+if(!time) return message.channel.send('Specify the time please');
 if(!time == "forever") {
   console.log('not perm')
       
