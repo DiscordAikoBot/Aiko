@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="subject" content="Aiko Bot">
+  <meta name="robots" content="index, invite">
+	<meta name="theme-color" content="#42b7ff">
+	<link rel="canonical" href="https://aiko.cf/">
+	<link rel="apple-touch-icon" href="/images/aiko2.png">
+	<meta property="og:image" content="https://aiko.cf/images/aiko.png">
+	<meta property="og:image:alt" content="A cute logo of Aiko">
+	<meta property="og:url" content="leaderboard">
+	<meta property="og:description" content="Aiko bot is a simple bot that has unique commands such as moderation commands, economy game commands, Covid-19 and weather commands! Developers always plan on big updates constantly and always listen to ideas!">
+	<meta property="og:title" content="Aiko Official">
+	<title>Aiko Bot</title>
+	<link rel="stylesheet" href="style.css">
+	<link rel="icon" href="/images/aiko.png">
+	<script src="js/source.js"></script>
+</head>
+</style>
+<body> 
+  <h1>Leaderboard for <span id="server"></span></h1>
+  <div id="leaderboard"></div>
+  <script>
+    (async () => {
+      const queryParams = new URLSearchParams(window.location.search);
+      const serverID = queryParams.get('id');
+
+      const { users, server } = await fetchLeaderboard(serverID);
+      const serverName = document.getElementById('server');
+      const leaderboard = document.getElementById('leaderboard');
+
+      serverName.innerText = server;
+      
+      let tempHTML = '';
+      for ([username, { rank, points }] of users) {
+        tempHTML += `<div>${username} - Rank: ${rank} - Points: ${points}</div>`
+      }
+
+      leaderboard.innerHTML = tempHTML;
+    })();
+  </script>
+</body>
+</html>

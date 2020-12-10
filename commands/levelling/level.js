@@ -20,8 +20,10 @@ module.exports = {
       if(toggle === 'on') {
 
         const levels = new db.table('level')
-        let points = levels.get(`points.${message.guild.id}.${member.id}`)
-        let rank = levels.get(`rank.${message.guild.id}.${member.id}`)
+        let points = levels.get(`points.${message.guild.id}.${member.id}`) || 0;
+        let rank = levels.get(`rank.${message.guild.id}.${member.id}`) || 1;
+        if (!points) points = 0;
+        if (!rank) rank = 0;
           let embed = new MessageEmbed() 
           .setColor("#ace9e7")
           .setTitle(`**${member.user.username} Level!**`)

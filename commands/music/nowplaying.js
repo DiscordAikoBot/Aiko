@@ -1,6 +1,6 @@
-const { Utils } = require("erela.js")
 const { MessageEmbed } = require("discord.js")
 const { stripIndents } = require("common-tags")
+const ms = require('ms')
 
 module.exports = { 
     config: {
@@ -17,13 +17,15 @@ module.exports = {
         
         if(!player) return message.channel.send("No song/s currently playing in this guild.");
         if (!channel) return message.channel.send("You need to be in a voice channel to use the leave command.");
-        const { title, author, duration, thumbnail } = player.queue[0];
+        const { title, author, duration, thumbnail } = player.queue.current;
+
+        console.log(player.queue.current)
 
         const embed = new MessageEmbed()
             .setAuthor("Current Song Playing.", message.author.displayAvatarURL)
             .setThumbnail(thumbnail)
             .setDescription(stripIndents`
-            ${player.playing ? "▶️" : "⏸️"} **${title}** \`${Utils.formatTime(duration, true)}\` by ${author}
+            ${player.playing ? "▶️" : "⏸️"} **${title}** \`${ms(duration)}\` by ${author}
             `);
 
         return message.channel.send(embed);

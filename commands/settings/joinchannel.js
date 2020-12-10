@@ -16,14 +16,14 @@ module.exports = {
       }
 
       let role = message.guild.channels.cache.find(r => r.name == args[0]) || message.guild.channels.cache.find(r => r.id == args[1]) || message.mentions.channels.first()
-      if(!role) return message.channel.send("Please provide a channel to send the welcome messsge.")
+      if(!role) return message.channel.send("Please provide a channel to send the welcome message.")
 
       db.set(`settings.${message.guild.id}.joinchannel`, role.id)
 
       let embed = new MessageEmbed()
       .setColor(redlight)
       .setTitle(`Updated Settings`)
-      .setDescription('Update Join Role!')
+      .setDescription('Updated join channel.')
       message.channel.send(embed)
     }
 }

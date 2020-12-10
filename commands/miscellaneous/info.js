@@ -80,9 +80,6 @@ module.exports = {
                 }
             )
             .addField(`\u200b`, "**[Support Server](https://discord.gg/vYX9CkD)** **•** **[Website](https://aiko.cf)** **•** **[Vote](https://top.gg/bot/764051652436819968)**")
-            .attachFiles(attachment)
-            .setImage(`attachment://topgg.png`)
-
         message.channel.send(botInfoEmbed);
     }
 };

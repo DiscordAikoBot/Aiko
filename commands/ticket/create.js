@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const db = require('quick.db');
 const ms = require("parse-ms");
 const randomstring = require("randomstring");
+const date = require('date-and-time');
+const hastebin = require('hastebin');
 
 module.exports = {
     config: {

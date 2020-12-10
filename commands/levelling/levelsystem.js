@@ -18,7 +18,6 @@ module.exports = {
       const type = args[0];
             const level = new db.table('LEVEL_SYSTEM');
             
-            
             const checking = level.fetch(`toggle_${message.guild.id}`);
             const role = new db.table("LEVEL_ROLES");
             switch(type) {
@@ -77,6 +76,41 @@ module.exports = {
                     
                     message.channel.send(levelmsgEmbed);
                     level.set(`message_${message.guild.id}`, content)
+
+                break;
+
+                case "role":
+                    const levels = args[1]
+                    if (!levels || isNaN(levels)) return message.channel.send({embed: {color:'#eb0936', description:"<:tick_no:746298075643117620> Please mention a level for which you want to assign a level role."}});
+
+                    const mentionedRole = args.slice(2).join(" ");
+                    const roles = message.mentions.roles.first()
+                        || message.guild.roles.cache.get(mentionedRole)
+                        || message.guild.roles.cache.find(r => r.name.toLowerCase() === mentionedRole.toLowerCase());
+
+                    if (role.get(message.guild.id)) {
+                        if (role.get(`${message.guild.id}.role`).find(role => role.role === role.id)) return message.channel.send({embed : {color:'#de2121', description:"<:tick_no:746298075643117620> That role is already set for level role."}})
+                    }
+
+                    if(!role) return message.channel.send({embed : {color:'#de2121', description:"<:tick_no:746298075643117620>  Could not find the specified role."}})
+                    
+                    if(!checking || checking === 'off') return message.channel.send({embed: {color:'#eb0936', description:"<:tick_no:746298075643117620> Please toggle **ON** the level system."}});
+
+                    const has = role.has(message.guild.id)
+
+                    const levelroleEmbed = new Discord.MessageEmbed()
+                        .setAuthor("SETTED LEVEL ROLE")
+                        .setColor('#10de47')
+                        .setDescription(`Setted role: ${roles.name} for level: ${levels}`)
+
+                    if(!has){
+                      role.set(message.guild.id, [{role:roles.id, level:level}])
+                      message.channel.send(levelroleEmbed);
+                    } else {
+                      role.set(message.guild.id, {role:roles.id, level:level})
+                      message.channel.send(levelroleEmbed);
+                    }
+                    
 
                 break;
 

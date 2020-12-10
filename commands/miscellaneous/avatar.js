@@ -2,6 +2,7 @@ const { MessageEmbed } = require("discord.js")
 const { cyan } = require("../../colours.json");
 const fetch = require('node-fetch');
 const aiko = require('aiko-premium')
+const { getMember } = require('../../functions.js')
 
 module.exports = { 
     config: {
@@ -13,14 +14,14 @@ module.exports = {
     },
     run: async (bot, message, args) => {
 
-      let st = false
+      /*let st = false
       await aiko.check(message).then(r => {
         st = r
       })
-      if(st === false) return message.channel.send('This command is only available for premium servers!');
+      if(st === false) return message.channel.send('This command is only available for premium servers!');*/
       
       
-      let user = message.mentions.members.first();
+      let user = getMember(message, args[0])
 
       if(!user) {
 

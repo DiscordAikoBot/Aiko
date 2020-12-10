@@ -1,7 +1,7 @@
 const db = require('quick.db');
 module.exports = { 
     config: {
-        name: "read",  //command name
+        name: "reset-pings",  //command name
         //aliases: ["", ""], // other command names if you dont need delete this line
         description: "", // Description of cmd
         accessableby: "Member", // accessed by who
@@ -9,9 +9,11 @@ module.exports = {
 
     },
     run: async (bot, message, args) => {
-        const stats = new db.table('stats');
-        int = Math.floor(Math.random() * 6);
-        message.channel.send(`You decide to read a book, and enjoy the amazing story! +${int} Int`)
-        stats.add(`int.${message.guild.id}.${message.author.id}`, int);
+        if (message.author.id === "563980783828860944") {
+            await haspinged.delete(message.author.id + "--messages");
+            await haspinged.delete(message.author.id + "--timestamps");
+        }
     }
 }
+                    
+                    

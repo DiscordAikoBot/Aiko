@@ -4,7 +4,7 @@ module.exports = {
     config: {
         name: "say",
         description: "sends a message that was inputted to a channel",
-        usage: "!say",
+        usage: "[channel] [embed] [message]",
         category: "moderation",
         accessableby: "Staff",
         aliases: ["acc", "announcement"]
