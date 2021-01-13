@@ -11,9 +11,10 @@ module.exports = {
         accessableby: "Moderator"
     },
     run: async (bot, message, args) => {
-      if(message.author.id !== message.guild.owner.user.id) {
-        if(message.author.tag !== "Conutik#5777") return message.channel.send('No Perms!');
-      }
+
+    const { permCheck } = require('../../functions.js');
+    let perm = permCheck(message, false, 'joinchannel')
+    if(perm === false) return message.channel.send('You do not have permissions!')
 
       let role = message.guild.channels.cache.find(r => r.name == args[0]) || message.guild.channels.cache.find(r => r.id == args[1]) || message.mentions.channels.first()
       if(!role) return message.channel.send("Please provide a channel to send the welcome message.")
@@ -27,4 +28,3 @@ module.exports = {
       message.channel.send(embed)
     }
 }
-

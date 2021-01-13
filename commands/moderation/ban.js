@@ -20,6 +20,8 @@ module.exports = {
    let banMember = message.mentions.members.first() || message.guild.members.cache.get(args[0]) 
    if(!banMember) return message.channel.send("Please provide a user to ban!")
 
+   if(banMember.id === message.author.id) return;
+
    let reason = args.slice(1).join(" ");
    if(!reason) reason = "No reason provided."
 

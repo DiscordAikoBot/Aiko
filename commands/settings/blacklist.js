@@ -10,7 +10,9 @@ module.exports = {
   },
   run: async (bot, message, args) => {
 
-    if (message.author.id != "255327008576241674") return message.channel.send("This command is only available to Developers as of right now.");
+    const { permCheck } = require('../../functions.js');
+    let perm = permCheck(message, false, 'blacklist')
+    if(perm === false) return message.channel.send('You do not have permissions!')
 
     let blacklist = args[0]
     if (!blacklist) return message.channel.send('Please Specify the word you want to blacklist!');

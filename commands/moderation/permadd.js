@@ -19,7 +19,7 @@ module.exports = {
 
     let role = message.guild.roles.cache.find(r => r.name == args[1]) || message.guild.roles.cache.find(r => r.id == args[1]) || message.mentions.roles.first()
 
-    let array = ["warn", "ban", "unwarn", "warns", "addrole", "clear", "kick", "mute", "prefix", "puns", "removerole", "say", "slowmode", "tempban", "unban", "unmute", "reactionrole", "addmoney", "ecoreset", "removemoney", "giveawaystart", "giveawayreroll", "giveawaydelete", "ticketadd", "ticketremove", "ticketrename", "tickettopic", "ticketsetup", "tickettimeout", "ticketrole", "ticketlog"]
+    let array = ["warn", "ban", "unwarn", "warns", "addrole", "clear", "kick", "mute", "prefix", "puns", "removerole", "say", "slowmode", "tempban", "unban", "unmute", "reactionrole", "addmoney", "ecoreset", "removemoney", "giveawaystart", "giveawayreroll", "giveawaydelete", "ticketadd", "ticketremove", "ticketrename", "tickettopic", "ticketsetup", "tickettimeout", "ticketrole", "ticketlog", "blacklist", "blacklistlist", "unblacklist", "joinchannel", "joinrole"]
 
     let c = false
 

@@ -12,7 +12,9 @@ module.exports = {
   },
   run: async (bot, message, args) => {
 
-    if (message.author.id != "255327008576241674") return message.channel.send("This command is only available to Developers as of right now.");
+    const { permCheck } = require('../../functions.js');
+    let perm = permCheck(message, false, 'blacklistlist')
+    if(perm === false) return message.channel.send('You do not have permissions!')
 
 
     let blacklistrn = db.get(`settings.${message.guild.id}.blacklist`)

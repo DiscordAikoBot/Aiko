@@ -81,17 +81,61 @@ bot.giveawaysManager = manager;
             }
        })
 
-  const { establish } = require('aiko-premium')
-  const aiko = require('aiko-premium')
+  let mutes = db.get(`tempmutes`);
+    if(mutes) {
 
-  establish('\;p"S&Ub2A7,%>\$=rfjX3AD:$X5)s#a"AJe-=5MD>zxKUY?]g~VK-`&"tqa')
+      mutes.forEach(std => {
 
-  // aiko.check()
-  // aiko.add()
 
-  // aiko.generate().then(x => {
-  //     console.log(x)
-  // })
+
+        let guild = bot.guilds.cache.get(std.member.guildID);
+        if(!guild) return console.log('qu');
+
+        guild.members.fetch(std.member.userID).then(mutee => {
+          if(!mutee) return console.log('mem');
+
+        let time = std.timer - Date.now()
+
+        if(time <= 0) {
+
+          let temp = db.get(`tempmutes`)
+          if(!Array.isArray(temp)) return db.delete(`tempmutes`)
+          let yrtd = temp.filter(s => s.member !== mutee)
+
+          db.set(`tempmutes`, yrtd)
+        } else {
+
+   setTimeout(function(){
+
+
+     let muterole = guild.roles.cache.find(r => r.name === "Muted")
+     if(!muterole) return console.log('Mute role');
+
+
+          if(mutee.roles.cache.some(r => r.id === muterole)) return;
+          mutee.roles.remove(muterole)
+          mutee.send(`You have been unmuted on \`${guild.name}\``).catch(e => {
+            return;
+          })
+
+          let temp = db.get(`tempmutes`)
+          if(!Array.isArray(temp)) return db.delete(`tempmutes`)
+          let yrtd = temp.filter(s => s.member !== mutee && s.guild !== guild)
+
+          if(yrtd.length <= 0) return db.delete(`tempmutes`);
+
+          db.set(`tempmutes`, yrtd)
+          
+          }, time)
+
+        }
+        })
+      
+      })
+    
+
+    }
+
 
   
   

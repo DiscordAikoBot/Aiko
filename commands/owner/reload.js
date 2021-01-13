@@ -7,22 +7,30 @@ module.exports = {
         aliases: ["creload"]
     },
     run: async (bot, message, args) => {
-    if(message.author.id != "255327008576241674, 738000272730619933") return message.channel.send("You're the bot the owner!")
+    const creatorIDs = ["255327008576241674", "455046083953950731", "738000272730619933"];
+       
+            if (!creatorIDs.includes(message.author.id)) {
+              return message.channel.send('You are not the owner of the bot').then(m => m.delete(5000));
+            }
+
 
     if(!args[0]) return message.channel.send("Please provide a command to reload!")
 
-    let commandName = args[0].toLowerCase()
+    const file = args[0]
+    if(!file) return message.channel.send("Please pass a file.");
 
-    try {
-        delete require.cache[require.resolve(`./${commandName}.js`)] // usage !reload <name>
-        bot.commands.delete(commandName)
-        const pull = require(`./${commandName}.js`)
-        bot.commands.set(commandName, pull)
-    } catch(e) {
-        return message.channel.send(`Could not reload: \`${args[0].toUpperCase()}\``)
-    }
+    const cmd = args.slice(1).join(" ").toLowerCase()
+    if(!cmd) return message.channel.send("Please pass a command you want to restart.");
 
-    message.channel.send(`The command \`${args[0].toUpperCase()}\` has been reloaded!`)
+    const command = message.client.commands.get(cmd)
+	                  || message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(cmd));
+    if (!command) return message.channel.send(`There is no command with name or alias \`${cmd}\``)
+    
+    delete require.cache[require.resolve(`../../commands/${file}/${cmd}.js`)];
+            client.commands.delete(args[1]);
+            const pull = require(`../../commands/${file}/${cmd}.js`)
+            client.commands.set(cmd, pull)
 
+    message.channel.send(`Command \`${command.name}\` was reloaded!`);
     }
 }
